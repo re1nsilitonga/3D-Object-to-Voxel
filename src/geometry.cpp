@@ -1,6 +1,5 @@
 #include "geometry.hpp"
 #include <limits>
-
 using namespace std;
 
 static void projectTriangle(const Vec3& axis, const Vec3 verts[3], double& outMin, double& outMax) {
@@ -17,7 +16,7 @@ static double boxRadius(const Vec3& axis, const Vec3& h) {
 
 static bool separated(const Vec3& axis, const Vec3 verts[3], const Vec3& h) {
     double axisLenSq = axis.dot(axis);
-    if (axisLenSq < 1e-10) return false; 
+    if (axisLenSq < 1e-10) return false;
     double triMin, triMax;
     projectTriangle(axis, verts, triMin, triMax);
     double r = boxRadius(axis, h);
@@ -43,8 +42,8 @@ bool triangleIntersectsBox(const Triangle& tri, const Box& box) {
     Vec3 e2 = verts[0] - verts[2];
     Vec3 triNormal = e0.cross(e1);
     if (separated(triNormal, verts, h)) return false;
-    Vec3 edges[3]  = {e0, e1, e2};
-    Vec3 worldAxes[3] = {axisX, axisY, axisZ};\
+    Vec3 edges[3]    = {e0, e1, e2};
+    Vec3 worldAxes[3] = {axisX, axisY, axisZ};
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
             Vec3 axis = edges[i].cross(worldAxes[j]);
