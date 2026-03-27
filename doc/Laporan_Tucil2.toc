@@ -1,0 +1,26 @@
+\babel@toc {english}{}\relax 
+\contentsline {section}{\numberline {1}Algoritma Divide and Conquer}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Gambaran Umum}{2}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Langkah-langkah Algoritma}{2}{subsection.1.2}%
+\contentsline {subsubsection}{\numberline {1.2.1}Membangun Root Bounding Box}{2}{subsubsection.1.2.1}%
+\contentsline {subsubsection}{\numberline {1.2.2}Divide: Membagi Kubus Menjadi 8 Oktant}{2}{subsubsection.1.2.2}%
+\contentsline {subsubsection}{\numberline {1.2.3}Memeriksa Irisan Permukaan}{2}{subsubsection.1.2.3}%
+\contentsline {subsubsection}{\numberline {1.2.4}Conquer: Rekursi ke Oktant yang Relevan}{3}{subsubsection.1.2.4}%
+\contentsline {subsubsection}{\numberline {1.2.5}Pembentukan Voxel}{3}{subsubsection.1.2.5}%
+\contentsline {subsection}{\numberline {1.3}Pseudocode}{3}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}Kompleksitas Waktu}{3}{subsection.1.4}%
+\contentsline {section}{\numberline {2}Implementasi}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Struktur File}{3}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Modul Program}{4}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Validasi Input}{4}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Format Output}{4}{subsection.2.4}%
+\contentsline {section}{\numberline {3}Eksperimen dan Hasil}{5}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Hasil 1: Kubus pada depth 4}{5}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Hasil 2: Line pada depth 3}{7}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Hasil 3: Pumpkin pada depth 5}{9}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Hasil 4: Pumpkin pada depth 7}{11}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}Hasil 5: Cow pada depth 6}{14}{subsection.3.5}%
+\contentsline {subsection}{\numberline {3.6}Hasil 6: Cow pada depth 8}{16}{subsection.3.6}%
+\contentsline {subsection}{\numberline {3.7}Hasil 7: Teapot pada depth 6}{19}{subsection.3.7}%
+\contentsline {subsection}{\numberline {3.8}Hasil 8: Input Tidak Valid}{21}{subsection.3.8}%
+\contentsline {section}{\numberline {4}Lampiran}{22}{section.4}%

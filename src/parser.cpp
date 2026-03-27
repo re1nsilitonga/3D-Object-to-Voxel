@@ -89,11 +89,11 @@ bool loadOBJ(const string& filePath, vector<Vec3>& vertices, vector<Face>& faces
     return loadOBJRoot(filePath, vertices, faces, root);
 }
 
-string generateOutputPath(const string& inputPath) {
+string generateOutputPath(const string& inputPath, int depth) {
     size_t dotPos = inputPath.rfind('.');
     size_t sepPos = inputPath.find_last_of("/\\");
     bool hasDot      = dotPos != string::npos;
     bool dotAfterSep = hasDot && (sepPos == string::npos || dotPos > sepPos);
     string base = dotAfterSep ? inputPath.substr(0, dotPos) : inputPath;
-    return base + "-voxelized.obj";
+    return base + "-voxelized-" + to_string(depth) + ".obj";
 }

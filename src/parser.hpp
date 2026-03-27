@@ -11,4 +11,4 @@ bool loadOBJRoot(const string& filePath, vector<Vec3>& vertices, vector<Face>& f
 
 bool loadOBJ(const string& filePath, vector<Vec3>& vertices, vector<Face>& faces);
 
-string generateOutputPath(const string& inputPath);
+string generateOutputPath(const string& inputPath, int depth);

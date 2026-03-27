@@ -1,0 +1,501 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage[top=2.5cm, bottom=3cm, left=2.5cm, right=2.5cm, headheight=30pt]{geometry}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{amsmath,amssymb}
+\usepackage{mathtools}
+\usepackage[dvipsnames,table]{xcolor}
+\definecolor{stemcol}{RGB}{30,100,20}
+\usepackage[english]{babel}
+\usepackage{titlesec}
+\usepackage{listings}
+\usepackage{longtable}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{etoolbox}
+
+\hypersetup{
+    colorlinks=false,
+    pdfborder={0 0 0}
+}
+
+\definecolor{codegray}{RGB}{245,245,245}
+\definecolor{codegreen}{rgb}{0,0.5,0}
+\definecolor{codepurple}{rgb}{0.4,0,0.6}
+
+
+\titleformat{\section}
+  {\bfseries\Large}
+  {\thesection}{1em}{}
+\titleformat{\subsection}
+  {\bfseries\large}
+  {\thesubsection}{1em}{}
+\titleformat{\subsubsection}
+  {\bfseries\normalsize}
+  {\thesubsubsection}{1em}{}
+
+\lstdefinestyle{cppstyle}{
+    language=C++,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{codepurple}\bfseries,
+    commentstyle=\color{codegreen},
+    stringstyle=\color{orange!80!black},
+    numberstyle=\tiny\color{gray},
+    numbers=left,
+    numbersep=8pt,
+    frame=single,
+    breaklines=true,
+    tabsize=4,
+    showstringspaces=false,
+    backgroundcolor=\color{codegray}
+}
+
+\lstdefinestyle{bashstyle}{
+    language=bash,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{codepurple},
+    commentstyle=\color{codegreen},
+    frame=single,
+    breaklines=true,
+    numbers=none,
+    backgroundcolor=\color{codegray}
+}
+
+% Header
+\fancypagestyle{myfancy}{
+    \fancyhf{}
+    \renewcommand{\headrulewidth}{0.1pt}
+    \renewcommand{\footrulewidth}{0.1pt}
+    \lhead{\includegraphics[height=1.3cm]{headerlogo.png}}
+    \fancyhead[R]{\textbf{IF2211 Strategi Algoritma}\\
+    Laporan Tugas Kecil 2\\
+    \textit{Semester II 2025/2026}}
+    \fancyfoot[R]{Halaman \thepage\ dari \pageref{LastPage}}
+}
+
+\addto\captionsenglish{%
+  \renewcommand{\bibname}{}%
+  \renewcommand{\refname}{}%
+}
+\patchcmd{\thebibliography}{\section*{\refname}}{}{}{}
+\patchcmd{\thebibliography}{\vspace*{-.5em}}{}{}{}
+
+\begin{document}
+
+% Halaman judul
+\begin{titlepage}
+\thispagestyle{empty}
+\centering
+
+\vspace{2em}
+{\Large\bfseries Laporan Tugas Kecil 2\par}
+\vspace{0.5em}
+{\large\textsc{IF2211 Strategi Algoritma}\par}
+{\normalsize\scshape Semester II Tahun 2025/2026\par}
+
+\vspace{2em}
+
+\includegraphics[width=0.5\textwidth]{cover.png}\\
+
+\vspace{1.5em}
+{Voxelization Objek 3D menggunakan Octree dengan Algoritma Divide and Conquer}\par
+\vspace{2em}
+
+{\large
+Disusun Oleh:\\[0.5em]
+13524090 \quad Nashiruddin Akram\\
+13524093 \quad Reinsen Silitonga\par}
+
+\vspace{6em}
+{\large
+\textsc{Program Studi Teknik Informatika}\\
+\textsc{Sekolah Teknik Elektro dan Informatika}\\
+\textsc{Institut Teknologi Bandung}\\[0.3em]
+\normalsize Maret 2026\par}
+\end{titlepage}
+
+\thispagestyle{empty}
+\vfill
+
+\clearpage
+\setlength{\headheight}{30pt}
+\setlength{\headsep}{20pt}
+\pagestyle{myfancy}
+\setcounter{page}{1}
+\tableofcontents
+\newpage
+
+% ===================================================================
+\section{Algoritma Divide and Conquer}
+% ===================================================================
+
+\subsection{Gambaran Umum}
+
+Algoritma melakukan \textit{surface voxelization} dengan pendekatan \textit{divide and conquer}
+berbasis Octree. Model masukan dibaca sebagai kumpulan segitiga yang tersusun dari titik-titik
+OBJ. Ruang 3D yang memuat model kemudian dibungkus oleh sebuah kubus akar. Kubus ini menjadi
+node awal pada struktur Octree.
+
+Pada setiap langkah rekursi, satu node kubus dievaluasi apakah masih berhubungan dengan
+permukaan model. Jika tidak berhubungan, node tersebut dipangkas. Jika masih berhubungan dan
+kedalaman belum mencapai batas, node dibagi menjadi delapan subkubus berukuran sama.
+Jika kedalaman sudah mencapai batas, node tersebut dicetak sebagai satu voxel kubus pada
+berkas keluaran.
+
+Dengan strategi ini, program tidak menelusuri seluruh ruang secara merata. Program hanya
+melanjutkan rekursi pada area yang dekat dengan permukaan objek, sehingga waktu komputasi
+lebih efisien dibanding pembagian seragam tanpa \textit{pruning}.
+
+\subsection{Langkah-langkah Algoritma}
+
+\subsubsection{Membangun Root Bounding Box}
+
+Sebelum rekursi dimulai, parser membaca semua baris \texttt{v} sebagai titik dan semua baris
+\texttt{f} sebagai bidang segitiga. Pada saat membaca titik, program sekaligus menghitung nilai
+minimum dan maksimum untuk sumbu $x$, $y$, dan $z$. Hasilnya adalah \textit{bounding box}
+terkecil yang memuat seluruh model.
+
+Karena Octree bekerja paling konsisten pada node berbentuk kubus, \textit{bounding box} awal
+ditransformasi menjadi kubus dengan panjang sisi sama pada semua sumbu. Ukuran setengah sisi
+kubus akar dihitung dengan rumus berikut:
+
+\[
+\text{half} = \max(\Delta x,\ \Delta y,\ \Delta z) \times 0.5 \times (1 + 10^{-4})
+\]
+
+Faktor $10^{-4}$ memberi \textit{padding} kecil agar kasus titik yang tepat berada di batas
+kubus tidak mudah terpengaruh galat numerik.
+
+\subsubsection{Divide: Membagi Kubus Menjadi 8 Oktant}
+
+Untuk setiap node yang relevan dan belum mencapai kedalaman maksimum, kubus dibagi di titik
+tengah ketiga sumbu:
+
+\[
+m_x = \frac{\min_x + \max_x}{2}, \quad
+m_y = \frac{\min_y + \max_y}{2}, \quad
+m_z = \frac{\min_z + \max_z}{2}
+\]
+
+Delapan oktant dibentuk dari kombinasi posisi kiri atau kanan, bawah atau atas, serta depan
+atau belakang. Setiap oktant memiliki panjang sisi setengah dari node induk. Mekanisme ini
+menghasilkan partisi ruang hierarkis yang tetap seragam pada setiap level.
+
+\subsubsection{Memeriksa Irisan Permukaan}
+
+Fungsi \texttt{buildOctree} memanggil fungsi deteksi irisan pada modul Octree untuk menentukan
+apakah sebuah node masih memiliki keterkaitan dengan permukaan model. Pada implementasi ini,
+uji dilakukan dengan pendekatan titik representatif untuk setiap bidang segitiga, yaitu tiga
+titik sudut, tiga titik tengah sisi, dan satu titik pusat segitiga.
+
+Sebuah bidang dianggap relevan terhadap node jika minimal satu titik representatifnya berada
+di dalam \textit{bounding box} node. Jika tidak ada bidang yang relevan, node dinyatakan kosong
+dan dihentikan dari rekursi.
+
+Langkah ini adalah inti efisiensi algoritma. Ruang kosong tidak diwariskan ke level berikutnya,
+sehingga jumlah node yang benar-benar diproses dapat berkurang secara signifikan.
+
+\subsubsection{Conquer: Rekursi ke Oktant yang Relevan}
+
+Untuk setiap oktant yang lolos filter, \texttt{buildOctree} dipanggil kembali dengan
+\textit{bounding box} oktant sebagai domain baru. Nilai kedalaman dinaikkan dari
+$d$ menjadi $d + 1$. Proses ini berlanjut sampai salah satu dari dua kondisi terpenuhi,
+yaitu node dipangkas karena kosong, atau node mencapai kedalaman maksimum.
+
+\subsubsection{Pembentukan Voxel}
+
+Ketika kedalaman rekursi mencapai \texttt{kedalamanMaks}, proses subdivisi dihentikan dan
+node diklasifikasikan sebagai \textit{leaf node}. Pada tahap ini, setiap node merepresentasikan
+sebuah kubus kecil dalam ruang 3D. Jika node tersebut tidak dipangkas (artinya masih beririsan dengan permukaan model), maka
+node dianggap sebagai bagian dari representasi objek dan ditulis sebagai satu voxel berbentuk
+kubus ke berkas OBJ. Setiap voxel direpresentasikan menggunakan 8 titik sudut dan 12 bidang segitiga. Dengan cara ini,
+permukaan objek yang semula kontinu didekati oleh kumpulan kubus-kubus kecil hasil subdivisi.
+
+\subsection{Pseudocode}
+
+\begin{lstlisting}[style=cppstyle, caption={Pseudocode buildOctree}, numbers=none]
+buildOctree(box, bidang, depth, maxDepth):
+    catat statistik node pada depth
+
+    // Filter: cek apakah ada bidang yang relevan
+    if tidak ada bidang yang menyentuh box:
+        catat statistik prune
+        return
+
+    if depth == maxDepth:
+        tulis 1 voxel kubus ke file OBJ
+        return
+
+    // Divide dan Conquer
+    mid = center(box)
+    for setiap oktant o dari 8 oktant:
+        buildOctree(o, bidang, depth+1, maxDepth)
+\end{lstlisting}
+
+\subsection{Kompleksitas Waktu}
+
+Analisis berikut hanya membahas kompleksitas waktu dalam notasi $O$. Misalkan $d$ adalah kedalaman maksimum Octree dan $N$ adalah jumlah bidang segitiga pada model
+masukan. Pada setiap node, proses filter dapat memeriksa hingga $N$ bidang. Pada level ke-$k$,
+jumlah node maksimum adalah $8^k$. Oleh karena itu, batas atas waktu total dapat ditulis sebagai:
+
+\[
+T(d) = O\left(\sum_{k=0}^{d-1} 8^k \cdot N\right) = O(8^d \cdot N)
+\]
+
+% ===================================================================
+\section{Implementasi}
+% ===================================================================
+
+\subsection{Struktur File}
+
+\begin{itemize}
+    \item \texttt{bin/voxelizer.exe}: berkas executable hasil kompilasi.
+    \item \texttt{doc/Laporan\_Tucil2.pdf}: keluaran dokumen laporan.
+    \item \texttt{src/geometry.hpp} dan \texttt{src/geometry.cpp}: struktur geometri dasar serta perhitungan bounding box.
+    \item \texttt{src/parser.hpp} dan \texttt{src/parser.cpp}: parser OBJ dan pembentukan path keluaran.
+    \item \texttt{src/octree.hpp} dan \texttt{src/octree.cpp}: rekursi octree, deteksi irisan, dan emisi voxel.
+    \item \texttt{src/main.cpp}: antarmuka CLI, timer, dan laporan statistik.
+    \item \texttt{test/}: kumpulan data uji.
+    \item \texttt{makefile}: aturan kompilasi dan pembersihan build.
+\end{itemize}
+
+\subsection{Modul Program}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lp{9cm}}
+\toprule
+\textbf{Modul} & \textbf{Fungsi} \\
+\midrule
+\texttt{geometry} & Struktur \texttt{Vec3}, \texttt{Box}/\texttt{BoundingBox}, dan \texttt{Triangle}; serta fungsi geometri dan bounding box \\
+\texttt{parser}   & Membaca file \texttt{.obj} dengan validasi lengkap, menghasilkan path output \\
+\texttt{octree}   & Deteksi irisan, emisi voxel, serta \texttt{buildOctree} secara rekursif \\
+\texttt{main}     & Parsing argumen CLI, orkestrasi alur, timer proses, laporan terminal \\
+\bottomrule
+\end{tabular}
+\caption{Modul-modul program}
+\end{table}
+
+\subsection{Validasi Input}
+
+Program melakukan validasi menyeluruh pada file \texttt{.obj}:
+\begin{itemize}
+    \item Menolak titik dengan format tidak valid (kurang dari 3 koordinat).
+    \item Menolak bidang non segitiga (lebih dari 3 titik).
+    \item Menolak indeks bidang yang melebihi jumlah titik yang tersedia.
+    \item Menolak indeks negatif.
+    \item Prefix selain \texttt{v} dan \texttt{f} diabaikan (\texttt{vn}, \texttt{vt}, \texttt{\#}, dll.).
+\end{itemize}
+
+\subsection{Format Output}
+
+Setiap voxel diekspor sebagai kubus dengan:
+\begin{itemize}
+    \item \textbf{8 titik} di sudut-sudut kubus.
+    \item \textbf{12 bidang segitiga} (2 segitiga per sisi $\times$ 6 sisi), semua indeks positif.
+    \item Ukuran kubus \textbf{seragam} (semua sisi sama panjang).
+\end{itemize}
+
+% ===================================================================
+\section{Eksperimen dan Hasil}
+% ===================================================================
+
+\subsection{Hasil 1: Kubus pada depth 4}
+
+\begin{figure}[H]
+    \centering
+    \IfFileExists{cube.png}{%
+        \includegraphics[width=0.9\textwidth]{cube.png}%
+    }{%
+        \fbox{\parbox[c][5cm][c]{0.85\textwidth}{\centering cube.png}}%
+    }
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \IfFileExists{cube_depth4.png}{%
+        \includegraphics[width=0.9\textwidth]{cube_depth4.png}%
+    }{%
+        \fbox{\parbox[c][5cm][c]{0.85\textwidth}{\centering cube_depth4.png}}%
+    }
+\end{figure}
+
+\begin{lstlisting}[style=bashstyle, caption={}]
+$ ./bin/voxelizer.exe test/cube.obj 4
+
+\end{lstlisting}
+
+\subsection{Hasil 2: Line pada depth 3}
+
+\begin{figure}[H]
+    \centering
+    \IfFileExists{line.png}{%
+        \includegraphics[width=0.9\textwidth]{line.png}%
+    }{%
+        \fbox{\parbox[c][5cm][c]{0.85\textwidth}{\centering line.png}}%
+    }
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \IfFileExists{line_depth3.png}{%
+        \includegraphics[width=0.9\textwidth]{line_depth3.png}%
+    }{%
+        \fbox{\parbox[c][5cm][c]{0.85\textwidth}{\centering line_depth3.png}}%
+    }
+\end{figure}
+
+\begin{lstlisting}[style=bashstyle, caption={}]
+$ ./bin/voxelizer.exe test/line.obj 3
+
+\end{lstlisting}
+
+\subsection{Hasil 3: Pumpkin pada depth 5}
+
+\begin{figure}[H]
+    \centering
+    \IfFileExists{pumpkin.png}{%
+        \includegraphics[width=0.9\textwidth]{pumpkin.png}%
+    }{%
+        \fbox{\parbox[c][5cm][c]{0.85\textwidth}{\centering pumpkin.png}}%
+    }
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \IfFileExists{pumpkin_depth5.png}{%
+        \includegraphics[width=0.9\textwidth]{pumpkin_depth5.png}%
+    }{%
+        \fbox{\parbox[c][5cm][c]{0.85\textwidth}{\centering pumpkin_depth5.png}}%
+    }
+\end{figure}
+
+\begin{lstlisting}[style=bashstyle, caption={}]
+$ ./bin/voxelizer.exe test/pumpkin.obj 5
+
+\end{lstlisting}
+
+\subsection{Hasil 4: Pumpkin pada depth 7}
+
+\begin{figure}[H]
+    \centering
+    \IfFileExists{pumpkin.png}{%
+        \includegraphics[width=0.9\textwidth]{pumpkin.png}%
+    }{%
+        \fbox{\parbox[c][5cm][c]{0.85\textwidth}{\centering pumpkin.png}}%
+    }
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \IfFileExists{pumpkin_depth7.png}{%
+        \includegraphics[width=0.9\textwidth]{pumpkin_depth7.png}%
+    }{%
+        \fbox{\parbox[c][5cm][c]{0.85\textwidth}{\centering pumpkin_depth7.png}}%
+    }
+\end{figure}
+
+\begin{lstlisting}[style=bashstyle, caption={}]
+$ ./bin/voxelizer.exe test/pumpkin.obj 7
+
+\end{lstlisting}
+
+\subsection{Hasil 5: Cow pada depth 6}
+
+\begin{figure}[H]
+    \centering
+    \IfFileExists{cow.png}{%
+        \includegraphics[width=0.9\textwidth]{cow.png}%
+    }{%
+        \fbox{\parbox[c][5cm][c]{0.85\textwidth}{\centering cow.png}}%
+    }
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \IfFileExists{cow_depth6.png}{%
+        \includegraphics[width=0.9\textwidth]{cow_depth6.png}%
+    }{%
+        \fbox{\parbox[c][5cm][c]{0.85\textwidth}{\centering cow_depth6.png}}%
+    }
+\end{figure}
+
+\begin{lstlisting}[style=bashstyle, caption={}]
+$ ./bin/voxelizer.exe test/cow.obj 6
+
+\end{lstlisting}
+
+\subsection{Hasil 6: Cow pada depth 8}
+
+\begin{figure}[H]
+    \centering
+    \IfFileExists{cow.png}{%
+        \includegraphics[width=0.9\textwidth]{cow.png}%
+    }{%
+        \fbox{\parbox[c][5cm][c]{0.85\textwidth}{\centering cow.png}}%
+    }
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \IfFileExists{cow_depth8.png}{%
+        \includegraphics[width=0.9\textwidth]{cow_depth8.png}%
+    }{%
+        \fbox{\parbox[c][5cm][c]{0.85\textwidth}{\centering cow_depth8.png}}%
+    }
+\end{figure}
+
+\begin{lstlisting}[style=bashstyle, caption={}]
+$ ./bin/voxelizer.exe test/cow.obj 8
+
+\end{lstlisting}
+
+\subsection{Hasil 7: Teapot pada depth 6}
+
+\begin{figure}[H]
+    \centering
+    \IfFileExists{teapot.png}{%
+        \includegraphics[width=0.9\textwidth]{teapot.png}%
+    }{%
+        \fbox{\parbox[c][5cm][c]{0.85\textwidth}{\centering teapot.png}}%
+    }
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \IfFileExists{teapot_depth6.png}{%
+        \includegraphics[width=0.9\textwidth]{teapot_depth6.png}%
+    }{%
+        \fbox{\parbox[c][5cm][c]{0.85\textwidth}{\centering teapot_depth6.png}}%
+    }
+\end{figure}
+
+\begin{lstlisting}[style=bashstyle, caption={}]
+$ ./bin/voxelizer.exe test/teapot.obj 6
+
+\end{lstlisting}
+
+\subsection{Hasil 8: Input Tidak Valid}
+
+\begin{figure}[H]
+    \centering
+    \IfFileExists{invalid_input.png}{%
+        \includegraphics[width=0.9\textwidth]{invalid_input.png}%
+    }{%
+        \fbox{\parbox[c][5cm][c]{0.85\textwidth}{\centering invalid_input.png}}%
+    }
+\end{figure}
+
+\clearpage
+\section{Lampiran}
+\begin{itemize}
+    \item Tautan Repository:\\
+    \url{https://github.com/re1nsilitonga/Tucil2_13524090_13524093}
+\end{itemize}
+
+\end{document}
