@@ -2,10 +2,21 @@
 #include <iostream>
 using namespace std;
 
-static int parseFaceIndex(const string& token) {
+static bool parseFaceIndex(const string& token, int& outIndex) {
     size_t slashPos = token.find('/');
     string idx = (slashPos == string::npos) ? token : token.substr(0, slashPos);
-    return stoi(idx);
+    if (idx.empty()) return false;
+    size_t processed = 0;
+    int value = 0;
+    try {
+        value = stoi(idx, &processed);
+    } catch (...) {
+        return false;
+    }
+    if (processed != idx.size()) return false;
+    if (value <= 0) return false;
+    outIndex = value;
+    return true;
 }
 
 bool loadOBJRoot(const string& filePath, vector<Vec3>& vertices, vector<Face>& faces, Box& root) {
@@ -17,28 +28,40 @@ bool loadOBJRoot(const string& filePath, vector<Vec3>& vertices, vector<Face>& f
         return false;
     }
     string line;
+    int lineNo = 0;
     root = {{1e9, 1e9, 1e9}, {-1e9, -1e9, -1e9}};
     while (getline(file, line)) {
+        lineNo++;
         stringstream ss(line);
         string type;
         ss >> type;
         if (type == "v") {
             Vec3 v;
-            ss >> v.x >> v.y >> v.z;
+            if (!(ss >> v.x >> v.y >> v.z)) {
+                cerr << "Error: format vertex tidak valid pada baris " << lineNo << "\n";
+                return false;
+            }
             vertices.push_back(v);
             root.min.x = min(root.min.x, v.x); root.max.x = max(root.max.x, v.x);
             root.min.y = min(root.min.y, v.y); root.max.y = max(root.max.y, v.y);
             root.min.z = min(root.min.z, v.z); root.max.z = max(root.max.z, v.z);
         } else if (type == "f") {
-            string t1, t2, t3;
+            string t1, t2, t3, t4;
             ss >> t1 >> t2 >> t3;
-            if (!t1.empty() && !t2.empty() && !t3.empty()) {
-                Face f;
-                f.v1 = parseFaceIndex(t1);
-                f.v2 = parseFaceIndex(t2);
-                f.v3 = parseFaceIndex(t3);
-                faces.push_back(f);
+            if (t1.empty() || t2.empty() || t3.empty()) {
+                cerr << "Error: face harus terdiri dari 3 vertex pada baris " << lineNo << "\n";
+                return false;
             }
+            if (ss >> t4) {
+                cerr << "Error: face non-segitiga terdeteksi pada baris " << lineNo << "\n";
+                return false;
+            }
+            Face f;
+            if (!parseFaceIndex(t1, f.v1) || !parseFaceIndex(t2, f.v2) || !parseFaceIndex(t3, f.v3)) {
+                cerr << "Error: indeks face tidak valid pada baris " << lineNo << "\n";
+                return false;
+            }
+            faces.push_back(f);
         }
     }
     if (vertices.empty()) {
@@ -49,6 +72,15 @@ bool loadOBJRoot(const string& filePath, vector<Vec3>& vertices, vector<Face>& f
         cerr << "Error: tidak ada face ditemukan di file\n";
         return false;
     }
+
+    int vertexCount = (int)vertices.size();
+    for (const Face& f : faces) {
+        if (f.v1 > vertexCount || f.v2 > vertexCount || f.v3 > vertexCount) {
+            cerr << "Error: indeks face melebihi jumlah vertex\n";
+            return false;
+        }
+    }
+
     return true;
 }
 

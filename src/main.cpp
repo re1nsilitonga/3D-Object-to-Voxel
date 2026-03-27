@@ -16,7 +16,7 @@ static void printUsage(const char* programName) {
 static void printReport(long long voxelCount, const OctreeStats& stats,
                         double elapsedSeconds, const string& outputPath) {
     long long vertexCount = voxelCount * 8;
-    long long faceCount   = voxelCount * 6;
+    long long faceCount   = voxelCount * 12;
 
     cout << "\n";
     cout << "Banyaknya voxel yang terbentuk   : " << voxelCount  << "\n";
@@ -64,8 +64,6 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    auto startTime = chrono::high_resolution_clock::now();
-
     vector<Vec3> vertices;
     vector<Face> faces;
     Box root;
@@ -93,10 +91,11 @@ int main(int argc, char* argv[]) {
     OctreeStats stats;
     stats.init(maxDepth);
 
+    auto startTime = chrono::high_resolution_clock::now();
     buildOctree(out, root, vertices, faces, 1, maxDepth, vc, vox, stats);
+    auto endTime = chrono::high_resolution_clock::now();
     out.close();
 
-    auto endTime = chrono::high_resolution_clock::now();
     double elapsed = chrono::duration<double>(endTime - startTime).count();
 
     printReport(vox, stats, elapsed, outputPath);

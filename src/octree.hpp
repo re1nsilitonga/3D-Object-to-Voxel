@@ -1,7 +1,8 @@
 #ifndef OCTREE_HPP
 #define OCTREE_HPP
 
-#include <bits/stdc++.h>
+#include <vector>
+#include <fstream>
 #include "geometry.hpp"
 using namespace std;
 
