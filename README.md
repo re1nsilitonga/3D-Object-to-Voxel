@@ -93,7 +93,7 @@ Program menghasilkan:
 1. File OBJ hasil voxelization dengan pola nama:
 
 ```text
-<nama-file-input>-voxelized.obj
+<nama-file-input>-voxelized-<tingkat kedalaman>.obj
 ```
 
 2. Informasi statistik pada terminal, meliputi:
