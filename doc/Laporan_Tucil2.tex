@@ -208,14 +208,24 @@ Untuk setiap oktant yang lolos filter, \texttt{buildOctree} dipanggil kembali de
 $d$ menjadi $d + 1$. Proses ini berlanjut sampai salah satu dari dua kondisi terpenuhi,
 yaitu node dipangkas karena kosong, atau node mencapai kedalaman maksimum.
 
-\subsubsection{Pembentukan Voxel}
+\subsubsection{Pembentukan Voxel sebagai Base Case}
 
-Ketika kedalaman rekursi mencapai \texttt{kedalamanMaks}, proses subdivisi dihentikan dan
-node diklasifikasikan sebagai \textit{leaf node}. Pada tahap ini, setiap node merepresentasikan
-sebuah kubus kecil dalam ruang 3D. Jika node tersebut tidak dipangkas (artinya masih beririsan dengan permukaan model), maka
-node dianggap sebagai bagian dari representasi objek dan ditulis sebagai satu voxel berbentuk
-kubus ke berkas OBJ. Setiap voxel direpresentasikan menggunakan 8 titik sudut dan 12 bidang segitiga. Dengan cara ini,
-permukaan objek yang semula kontinu didekati oleh kumpulan kubus-kubus kecil hasil subdivisi.
+Algoritma tidak akan terus membelah ruang selamanya. Kami membuat algoritma ini dengan memiliki dua kondisi berhenti (base case) 
+yang mengontrol agar pembagian ini efisien dan menghasilkan output:
+
+\begin{enumerate}
+    \item \textbf{Pemangkasan Ruang Kosong (Pruning):} Sebelum membelah sebuah kotak, algoritma akan 
+    mengecek apakah kotak tersebut memuat atau bersinggungan dengan minimal satu bagian (face) dari 
+    model 3D aslinya menggunakan fungsi \texttt{punyaFace}. Jika kotak tersebut terbukti kosong (\texttt{!ok}), 
+    maka pencarian di dalam cabang atau kotak tersebut dihentikan sepenuhnya. Ini mencegah algoritma 
+    membuang-buang waktu memproses ruang udara kosong.
+    
+    \item \textbf{Mencapai Target Kedalaman Maksimal:} Jika pemotongan sudah mencapai target jumlah 
+    kedalaman yang diinputkan oleh pengguna (\(d = md\)), algoritma menganggap bahwa ruang kecil itu 
+    mewakili satu blok voxel yang valid. Pada tahap ini, algoritma mencetak bangun kubus tersebut 
+    langsung ke dalam file output \texttt{.obj} melalui fungsi \texttt{printObjFile}, lalu proses 
+    membelah dihentikan.
+\end{enumerate}
 
 \subsection{Pseudocode}
 
@@ -684,11 +694,36 @@ Penggunaan: ./bin/voxelizer.exe <input.obj> <kedalamanMaks>
 
 \end{lstlisting}
 
-\clearpage
 \section{Lampiran}
 \begin{itemize}
     \item Tautan Repository:\\
     \url{https://github.com/re1nsilitonga/Tucil2_13524090_13524093}
 \end{itemize}
+\clearpage
 
+\section{Pernyataan Tidak Melakukan Kecurangan}
+\begin{center}
+\fbox{
+\begin{minipage}{0.9\textwidth}
+
+Tugas ini disusun sepenuhnya tanpa bantuan kecerdasan buatan (\textit{Generative AI}), 
+melainkan hasil pemikiran dan analisis mandiri.
+
+\vspace{1.5cm}
+
+\begin{flushright}
+
+\includegraphics[width=3cm]{ttd1.jpeg}\\
+Nashiruddin Akram
+
+\vspace{1cm}
+
+\includegraphics[width=3cm]{ttd2.png}\\
+Reinsen Silitonga
+
+\end{flushright}
+
+\end{minipage}
+}
+\end{center}
 \end{document}

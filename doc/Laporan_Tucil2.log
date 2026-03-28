@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.3.27)  27 MAR 2026 22:49
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.3.27)  28 MAR 2026 18:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -911,7 +911,7 @@ Package: ltcaption 2021/01/08 v1.4c longtable captions (AR)
 )
 Package caption Info: End \AtBeginDocument code.
 \c@lstlisting=\count354
-<cover.png, id=107, 284.56313pt x 284.56313pt>
+<cover.png, id=111, 284.56313pt x 284.56313pt>
 File: cover.png Graphic file (type png)
 <use cover.png>
 Package pdftex.def Info: cover.png  used on input line 103.
@@ -943,37 +943,37 @@ l.134 \newpage
                [1
 
 ]
-<headerlogo.png, id=148, 219.06844pt x 111.41624pt>
+<headerlogo.png, id=153, 219.06844pt x 111.41624pt>
 File: headerlogo.png Graphic file (type png)
 <use headerlogo.png>
 Package pdftex.def Info: headerlogo.png  used on input line 210.
 (pdftex.def)             Requested size: 72.72736pt x 36.98866pt.
  [2 <./headerlogo.png>]
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 223.
+put line 233.
 File: headerlogo.png Graphic file (type png)
 <use headerlogo.png>
-Package pdftex.def Info: headerlogo.png  used on input line 265.
+Package pdftex.def Info: headerlogo.png  used on input line 273.
 (pdftex.def)             Requested size: 72.72736pt x 36.98866pt.
  [3]
-<cube.png, id=173, 608.2725pt x 592.2125pt>
+<cube.png, id=179, 608.2725pt x 592.2125pt>
 File: cube.png Graphic file (type png)
 <use cube.png>
-Package pdftex.def Info: cube.png  used on input line 319.
+Package pdftex.def Info: cube.png  used on input line 329.
 (pdftex.def)             Requested size: 424.82523pt x 413.61516pt.
 File: headerlogo.png Graphic file (type png)
 <use headerlogo.png>
-Package pdftex.def Info: headerlogo.png  used on input line 322.
+Package pdftex.def Info: headerlogo.png  used on input line 332.
 (pdftex.def)             Requested size: 72.72736pt x 36.98866pt.
  [4]
-<cube_depth4.png, id=180, 633.36626pt x 613.29124pt>
+<cube_depth4.png, id=187, 633.36626pt x 613.29124pt>
 File: cube_depth4.png Graphic file (type png)
 <use cube_depth4.png>
-Package pdftex.def Info: cube_depth4.png  used on input line 329.
+Package pdftex.def Info: cube_depth4.png  used on input line 339.
 (pdftex.def)             Requested size: 424.82523pt x 411.3709pt.
 File: headerlogo.png Graphic file (type png)
 <use headerlogo.png>
-Package pdftex.def Info: headerlogo.png  used on input line 332.
+Package pdftex.def Info: headerlogo.png  used on input line 342.
 (pdftex.def)             Requested size: 72.72736pt x 36.98866pt.
  [5 <./cube.png>]
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
@@ -983,158 +983,168 @@ File: lstlang1.sty 2023/02/27 1.9 listings language file
 File: lstlang1.sty 2023/02/27 1.9 listings language file
 )
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 333.
+nput line 343.
 LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line 
-334.
+344.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmtt.fd
 File: ts1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
 )
 File: headerlogo.png Graphic file (type png)
 <use headerlogo.png>
-Package pdftex.def Info: headerlogo.png  used on input line 350.
+Package pdftex.def Info: headerlogo.png  used on input line 360.
 (pdftex.def)             Requested size: 72.72736pt x 36.98866pt.
  [6 <./cube_depth4.png>]
-<line.png, id=214, 608.2725pt x 592.2125pt>
+<line.png, id=221, 608.2725pt x 592.2125pt>
 File: line.png Graphic file (type png)
 <use line.png>
-Package pdftex.def Info: line.png  used on input line 368.
+Package pdftex.def Info: line.png  used on input line 378.
 (pdftex.def)             Requested size: 424.82523pt x 413.61516pt.
-<line_depth3.png, id=215, 633.36626pt x 613.29124pt>
+<line_depth3.png, id=222, 633.36626pt x 613.29124pt>
 File: line_depth3.png Graphic file (type png)
 <use line_depth3.png>
-Package pdftex.def Info: line_depth3.png  used on input line 378.
+Package pdftex.def Info: line_depth3.png  used on input line 388.
 (pdftex.def)             Requested size: 424.82523pt x 411.3709pt.
 File: headerlogo.png Graphic file (type png)
 <use headerlogo.png>
-Package pdftex.def Info: headerlogo.png  used on input line 381.
+Package pdftex.def Info: headerlogo.png  used on input line 391.
 (pdftex.def)             Requested size: 72.72736pt x 36.98866pt.
  [7 <./line.png>]
 File: headerlogo.png Graphic file (type png)
 <use headerlogo.png>
-Package pdftex.def Info: headerlogo.png  used on input line 399.
+Package pdftex.def Info: headerlogo.png  used on input line 409.
 (pdftex.def)             Requested size: 72.72736pt x 36.98866pt.
  [8 <./line_depth3.png>]
-<pumpkin.png, id=254, 608.2725pt x 592.2125pt>
+<pumpkin.png, id=261, 608.2725pt x 592.2125pt>
 File: pumpkin.png Graphic file (type png)
 <use pumpkin.png>
-Package pdftex.def Info: pumpkin.png  used on input line 415.
+Package pdftex.def Info: pumpkin.png  used on input line 425.
 (pdftex.def)             Requested size: 424.82523pt x 413.61516pt.
-<pumpkin_depth5.png, id=255, 608.2725pt x 592.2125pt>
+<pumpkin_depth5.png, id=262, 608.2725pt x 592.2125pt>
 File: pumpkin_depth5.png Graphic file (type png)
 <use pumpkin_depth5.png>
-Package pdftex.def Info: pumpkin_depth5.png  used on input line 425.
+Package pdftex.def Info: pumpkin_depth5.png  used on input line 435.
 (pdftex.def)             Requested size: 424.82523pt x 413.61516pt.
 File: headerlogo.png Graphic file (type png)
 <use headerlogo.png>
-Package pdftex.def Info: headerlogo.png  used on input line 428.
+Package pdftex.def Info: headerlogo.png  used on input line 438.
 (pdftex.def)             Requested size: 72.72736pt x 36.98866pt.
  [9 <./pumpkin.png>]
 File: headerlogo.png Graphic file (type png)
 <use headerlogo.png>
-Package pdftex.def Info: headerlogo.png  used on input line 446.
+Package pdftex.def Info: headerlogo.png  used on input line 456.
 (pdftex.def)             Requested size: 72.72736pt x 36.98866pt.
  [10 <./pumpkin_depth5.png>]
 File: pumpkin.png Graphic file (type png)
 <use pumpkin.png>
-Package pdftex.def Info: pumpkin.png  used on input line 466.
+Package pdftex.def Info: pumpkin.png  used on input line 476.
 (pdftex.def)             Requested size: 424.82523pt x 413.61516pt.
-<pumpkin_depth7.png, id=293, 608.2725pt x 592.2125pt>
+<pumpkin_depth7.png, id=300, 608.2725pt x 592.2125pt>
 File: pumpkin_depth7.png Graphic file (type png)
 <use pumpkin_depth7.png>
-Package pdftex.def Info: pumpkin_depth7.png  used on input line 476.
+Package pdftex.def Info: pumpkin_depth7.png  used on input line 486.
 (pdftex.def)             Requested size: 424.82523pt x 413.61516pt.
 File: headerlogo.png Graphic file (type png)
 <use headerlogo.png>
-Package pdftex.def Info: headerlogo.png  used on input line 479.
+Package pdftex.def Info: headerlogo.png  used on input line 489.
 (pdftex.def)             Requested size: 72.72736pt x 36.98866pt.
  [11]
 File: headerlogo.png Graphic file (type png)
 <use headerlogo.png>
-Package pdftex.def Info: headerlogo.png  used on input line 497.
+Package pdftex.def Info: headerlogo.png  used on input line 507.
 (pdftex.def)             Requested size: 72.72736pt x 36.98866pt.
  [12 <./pumpkin_depth7.png>]
-<cow.png, id=334, 633.36626pt x 613.29124pt>
+<cow.png, id=341, 633.36626pt x 613.29124pt>
 File: cow.png Graphic file (type png)
 <use cow.png>
-Package pdftex.def Info: cow.png  used on input line 521.
-(pdftex.def)             Requested size: 424.82523pt x 411.3709pt.
-File: headerlogo.png Graphic file (type png)
-<use headerlogo.png>
-Package pdftex.def Info: headerlogo.png  used on input line 524.
-(pdftex.def)             Requested size: 72.72736pt x 36.98866pt.
- [13]
-<cow_depth6.png, id=354, 633.36626pt x 613.29124pt>
-File: cow_depth6.png Graphic file (type png)
-<use cow_depth6.png>
-Package pdftex.def Info: cow_depth6.png  used on input line 531.
+Package pdftex.def Info: cow.png  used on input line 531.
 (pdftex.def)             Requested size: 424.82523pt x 411.3709pt.
 File: headerlogo.png Graphic file (type png)
 <use headerlogo.png>
 Package pdftex.def Info: headerlogo.png  used on input line 534.
 (pdftex.def)             Requested size: 72.72736pt x 36.98866pt.
+ [13]
+<cow_depth6.png, id=361, 633.36626pt x 613.29124pt>
+File: cow_depth6.png Graphic file (type png)
+<use cow_depth6.png>
+Package pdftex.def Info: cow_depth6.png  used on input line 541.
+(pdftex.def)             Requested size: 424.82523pt x 411.3709pt.
+File: headerlogo.png Graphic file (type png)
+<use headerlogo.png>
+Package pdftex.def Info: headerlogo.png  used on input line 544.
+(pdftex.def)             Requested size: 72.72736pt x 36.98866pt.
  [14 <./cow.png>]
 File: headerlogo.png Graphic file (type png)
 <use headerlogo.png>
-Package pdftex.def Info: headerlogo.png  used on input line 553.
+Package pdftex.def Info: headerlogo.png  used on input line 563.
 (pdftex.def)             Requested size: 72.72736pt x 36.98866pt.
  [15 <./cow_depth6.png>]
 File: cow.png Graphic file (type png)
 <use cow.png>
-Package pdftex.def Info: cow.png  used on input line 574.
+Package pdftex.def Info: cow.png  used on input line 584.
 (pdftex.def)             Requested size: 424.82523pt x 411.3709pt.
-<cow_depth8.png, id=385, 633.36626pt x 613.29124pt>
+<cow_depth8.png, id=392, 633.36626pt x 613.29124pt>
 File: cow_depth8.png Graphic file (type png)
 <use cow_depth8.png>
-Package pdftex.def Info: cow_depth8.png  used on input line 584.
+Package pdftex.def Info: cow_depth8.png  used on input line 594.
 (pdftex.def)             Requested size: 424.82523pt x 411.3709pt.
 File: headerlogo.png Graphic file (type png)
 <use headerlogo.png>
-Package pdftex.def Info: headerlogo.png  used on input line 587.
+Package pdftex.def Info: headerlogo.png  used on input line 597.
 (pdftex.def)             Requested size: 72.72736pt x 36.98866pt.
  [16]
 File: headerlogo.png Graphic file (type png)
 <use headerlogo.png>
-Package pdftex.def Info: headerlogo.png  used on input line 605.
+Package pdftex.def Info: headerlogo.png  used on input line 615.
 (pdftex.def)             Requested size: 72.72736pt x 36.98866pt.
  [17 <./cow_depth8.png>]
-<teapot.png, id=428, 527.9725pt x 502.87875pt>
+<teapot.png, id=435, 527.9725pt x 502.87875pt>
 File: teapot.png Graphic file (type png)
 <use teapot.png>
-Package pdftex.def Info: teapot.png  used on input line 631.
-(pdftex.def)             Requested size: 424.82523pt x 404.62856pt.
-File: headerlogo.png Graphic file (type png)
-<use headerlogo.png>
-Package pdftex.def Info: headerlogo.png  used on input line 634.
-(pdftex.def)             Requested size: 72.72736pt x 36.98866pt.
- [18]
-<teapot_depth6.png, id=451, 527.9725pt x 502.87875pt>
-File: teapot_depth6.png Graphic file (type png)
-<use teapot_depth6.png>
-Package pdftex.def Info: teapot_depth6.png  used on input line 641.
+Package pdftex.def Info: teapot.png  used on input line 641.
 (pdftex.def)             Requested size: 424.82523pt x 404.62856pt.
 File: headerlogo.png Graphic file (type png)
 <use headerlogo.png>
 Package pdftex.def Info: headerlogo.png  used on input line 644.
 (pdftex.def)             Requested size: 72.72736pt x 36.98866pt.
+ [18]
+<teapot_depth6.png, id=458, 527.9725pt x 502.87875pt>
+File: teapot_depth6.png Graphic file (type png)
+<use teapot_depth6.png>
+Package pdftex.def Info: teapot_depth6.png  used on input line 651.
+(pdftex.def)             Requested size: 424.82523pt x 404.62856pt.
+File: headerlogo.png Graphic file (type png)
+<use headerlogo.png>
+Package pdftex.def Info: headerlogo.png  used on input line 654.
+(pdftex.def)             Requested size: 72.72736pt x 36.98866pt.
  [19 <./teapot.png>]
 File: headerlogo.png Graphic file (type png)
 <use headerlogo.png>
-Package pdftex.def Info: headerlogo.png  used on input line 663.
+Package pdftex.def Info: headerlogo.png  used on input line 673.
 (pdftex.def)             Requested size: 72.72736pt x 36.98866pt.
  [20 <./teapot_depth6.png>]
 File: headerlogo.png Graphic file (type png)
 <use headerlogo.png>
-Package pdftex.def Info: headerlogo.png  used on input line 687.
+Package pdftex.def Info: headerlogo.png  used on input line 702.
 (pdftex.def)             Requested size: 72.72736pt x 36.98866pt.
  [21]
+<ttd1.jpeg, id=514, 907.39pt x 465.74pt>
+File: ttd1.jpeg Graphic file (type jpg)
+<use ttd1.jpeg>
+Package pdftex.def Info: ttd1.jpeg  used on input line 727.
+(pdftex.def)             Requested size: 85.35826pt x 43.81226pt.
+<ttd2.png, id=515, 963.6pt x 642.4pt>
+File: ttd2.png Graphic file (type png)
+<use ttd2.png>
+Package pdftex.def Info: ttd2.png  used on input line 727.
+(pdftex.def)             Requested size: 85.35826pt x 56.90189pt.
 File: headerlogo.png Graphic file (type png)
 <use headerlogo.png>
-Package pdftex.def Info: headerlogo.png  used on input line 694.
+Package pdftex.def Info: headerlogo.png  used on input line 729.
 (pdftex.def)             Requested size: 72.72736pt x 36.98866pt.
  [22
 
-]
+ <./ttd1.jpeg> <./ttd2.png>]
 
 enddocument/afterlastpage: lastpage setting LastPage.
 (./Laporan_Tucil2.aux)
@@ -1142,14 +1152,21 @@ enddocument/afterlastpage: lastpage setting LastPage.
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
-Package rerunfilecheck Info: File `Laporan_Tucil2.out' has not changed.
-(rerunfilecheck)             Checksum: 93FFE9B7461B18A8A2A33A51C19B1615;4381.
+
+
+Package rerunfilecheck Warning: File `Laporan_Tucil2.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `Laporan_Tucil2.out':
+(rerunfilecheck)             Before: C49D840529E18676976E61A5DA362736;4832
+(rerunfilecheck)             After:  73905F8F7AFEBF139A1EBD19F6491949;4718.
  ) 
 Here is how much of TeX's memory you used:
- 27631 strings out of 475597
- 494764 string characters out of 5783339
- 2040975 words of memory out of 5000000
- 49091 multiletter control sequences out of 15000+600000
+ 27659 strings out of 475597
+ 495299 string characters out of 5783339
+ 2041975 words of memory out of 5000000
+ 49116 multiletter control sequences out of 15000+600000
  567847 words of font info for 74 fonts, out of 8000000 for 9000
  309 hyphenation exceptions out of 8191
  84i,16n,87p,517b,2147s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1169,10 +1186,10 @@ m/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10
 usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/sh
 are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/te
 xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
-Output written on Laporan_Tucil2.pdf (23 pages, 984286 bytes).
+Output written on Laporan_Tucil2.pdf (23 pages, 1039711 bytes).
 PDF statistics:
- 640 PDF objects out of 1000 (max. 8388607)
- 549 compressed objects within 6 object streams
- 260 named destinations out of 1000 (max. 500000)
- 283 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 650 PDF objects out of 1000 (max. 8388607)
+ 556 compressed objects within 6 object streams
+ 263 named destinations out of 1000 (max. 500000)
+ 301 words of extra memory for PDF output out of 10000 (max. 10000000)
 
