@@ -13,7 +13,7 @@ Program ini mengimplementasikan voxelization model 3D berformat OBJ menggunakan 
 * **Octree & Divide and Conquer (Cara Cepat Membangun):** Untuk menemukan di mana balok harus diletakkan, program tidak mengecek seluruh dunia secara membabi buta. Ia menggunakan trik cerdas yang disebut *Octree* (Pohon beranak 8):
     1.  Program membuat satu **kotak raksasa** yang membungkus seluruh objek 3D.
     2.  Kotak raksasa itu kemudian **dibelah menjadi 8 kotak** yang lebih kecil.
-    3.  Jika ada kotak yang ternyata kosong (hanya udara), kotak itu langsung dibuang (menghemat banyak waktu!).
+    3.  Jika ada kotak yang ternyata kosong, kotak itu langsung dibuang.
     4.  Jika kotak tersebut menyentuh bagian dari objek 3D, kotak itu dibelah lagi menjadi 8. Begitu seterusnya sampai kotaknya mengecil seukuran blok Minecraft yang kita inginkan.
 
 Secara umum, alur program adalah:
