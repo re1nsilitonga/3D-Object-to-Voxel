@@ -1,5 +1,7 @@
 # Tucil2_13524090_13524093
 
+![Logo](cover.png)
+
 ## Deskripsi Program
 
 Program ini mengimplementasikan voxelization model 3D berformat OBJ menggunakan pendekatan divide and conquer berbasis octree.
@@ -10,8 +12,6 @@ Secara umum, alur program adalah:
 3. Membangun octree secara rekursif sampai kedalaman maksimum.
 4. Menentukan node yang merepresentasikan voxel valid.
 5. Mengekspor hasil voxelization ke file OBJ baru.
-
-Repository: https://github.com/re1nsilitonga/Tucil2_13524090_13524093
 
 ## Requirement
 
