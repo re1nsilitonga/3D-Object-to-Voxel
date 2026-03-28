@@ -80,6 +80,56 @@ bin/voxelizer.exe test/pumpkin.obj 9
 bin/voxelizer.exe test/teapot.obj 8
 ```
 
+## Cara Menjalankan GUI (Viewer)
+
+Program juga menyediakan viewer sederhana untuk melihat file OBJ secara interaktif.
+
+Requirement tambahan untuk viewer:
+1. Library SFML (graphics, window, system).
+2. `pkg-config` untuk deteksi SFML saat build.
+
+Contoh instalasi di Ubuntu/Debian:
+
+```bash
+sudo apt update
+sudo apt install -y libsfml-dev pkg-config
+```
+
+Build viewer:
+
+```bash
+make viewer
+```
+
+Jika SFML terdeteksi, executable viewer akan dibuat di:
+
+```bash
+bin/viewer.exe
+```
+
+Cara menjalankan viewer:
+
+```bash
+bin/viewer.exe <file-obj>
+```
+
+Contoh:
+
+```bash
+bin/viewer.exe test/cube.obj
+bin/viewer.exe test/cube-voxelized-4.obj
+```
+
+Kontrol pada viewer:
+1. Klik dan drag mouse untuk rotasi objek.
+2. Scroll mouse untuk zoom in atau zoom out.
+3. Tutup jendela untuk keluar dari viewer.
+
+Catatan:
+1. `make` akan mencoba build `bin/voxelizer.exe` dan `bin/viewer.exe`.
+2. Jika SFML belum terpasang, proses build viewer akan dilewati otomatis.
+3. Viewer menerima path langsung, dan juga mencoba mencari file di folder `test/` jika path awal tidak ditemukan.
+
 ## Format Input yang Didukung
 
 File input harus berformat OBJ dengan asumsi:
