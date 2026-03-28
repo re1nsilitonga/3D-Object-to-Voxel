@@ -1,10 +1,20 @@
 # Tucil2_13524090_13524093
+# 3D to Voxel Converter
 
 ![Logo](cover.png)
 
 ## Deskripsi Program
+Pernahkah kamu melihat sebuah benda dan membayangkan bagaimana bentuknya jika dibangun di dalam game Minecraft? Program ini melakukan hal yang persis sama secara otomatis!
 
+Program ini berfungsi mengubah model 3D standar (yang permukaannya mulus dan terbuat dari segitiga) menjadi susunan balok-balok 3D. Proses pengubahan wujud menjadi balok-balok ini dikenal dengan istilah Voxelization.
 Program ini mengimplementasikan voxelization model 3D berformat OBJ menggunakan pendekatan divide and conquer berbasis octree.
+
+* **Voxel (Volumetric Pixel):** Jika gambar 2D di layar HP-mu tersusun dari titik-titik warna bernama *pixel*, maka bentuk 3D tersusun dari kubus-kubus bernama *voxel*. Secara sederhana, *voxel* adalah satu blok bangunan di Minecraft.
+* **Octree & Divide and Conquer (Cara Cepat Membangun):** Untuk menemukan di mana balok harus diletakkan, program tidak mengecek seluruh dunia secara membabi buta. Ia menggunakan trik cerdas yang disebut *Octree* (Pohon beranak 8):
+    1.  Program membuat satu **kotak raksasa** yang membungkus seluruh objek 3D.
+    2.  Kotak raksasa itu kemudian **dibelah menjadi 8 kotak** yang lebih kecil.
+    3.  Jika ada kotak yang ternyata kosong (hanya udara), kotak itu langsung dibuang (menghemat banyak waktu!).
+    4.  Jika kotak tersebut menyentuh bagian dari objek 3D, kotak itu dibelah lagi menjadi 8. Begitu seterusnya sampai kotaknya mengecil seukuran blok Minecraft yang kita inginkan.
 
 Secara umum, alur program adalah:
 1. Membaca mesh segitiga dari file OBJ (vertex dan face).
