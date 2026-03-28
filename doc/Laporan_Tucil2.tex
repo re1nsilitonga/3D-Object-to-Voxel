@@ -270,11 +270,13 @@ T(d) = O\left(\sum_{k=0}^{d-1} 8^k \cdot N\right) = O(8^d \cdot N)
 
 \begin{itemize}
     \item \texttt{bin/voxelizer.exe}: berkas executable hasil kompilasi.
+    \item \texttt{bin/viewer.exe}: berkas executable untuk visualisasi model OBJ.
     \item \texttt{doc/Laporan\_Tucil2.pdf}: keluaran dokumen laporan.
     \item \texttt{src/geometry.hpp} dan \texttt{src/geometry.cpp}: struktur geometri dasar serta perhitungan bounding box.
     \item \texttt{src/parser.hpp} dan \texttt{src/parser.cpp}: parser OBJ dan pembentukan path keluaran.
     \item \texttt{src/octree.hpp} dan \texttt{src/octree.cpp}: rekursi octree, deteksi irisan, dan emisi voxel.
     \item \texttt{src/main.cpp}: antarmuka CLI, timer, dan laporan statistik.
+    \item \texttt{src/viewer.hpp} dan \texttt{src/viewer.cpp}: modul visualisasi untuk menampilkan model hasil voxelization.
     \item \texttt{test/}: kumpulan data uji.
     \item \texttt{makefile}: aturan kompilasi dan pembersihan build.
 \end{itemize}
@@ -292,6 +294,7 @@ T(d) = O\left(\sum_{k=0}^{d-1} 8^k \cdot N\right) = O(8^d \cdot N)
 \texttt{parser}   & Membaca file \texttt{.obj} dengan validasi lengkap, menghasilkan path output \\
 \texttt{octree}   & Deteksi irisan, emisi voxel, serta \texttt{buildOctree} secara rekursif \\
 \texttt{main}     & Parsing argumen CLI, orkestrasi alur, timer proses, laporan terminal \\
+\texttt{viewer}   & Menampilkan model OBJ hasil voxelization secara interaktif  \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -694,6 +697,149 @@ Penggunaan: ./bin/voxelizer.exe <input.obj> <kedalamanMaks>
 
 \end{lstlisting}
 
+\clearpage
+\section{Bonus Visualisasi}
+
+Implementasi bonus ini berfokus pada pembuatan \textit{.obj viewer} interaktif
+dalam bahasa C++. Viewer tersebut menampilkan model 3D hasil voxelization.
+Implementasi viewer ini berada pada file \texttt{src/viewer.cpp} dan \texttt{src/viewer.hpp}.
+Visualisasi digunakan sebagai validasi kualitatif agar bentuk objek,
+kontur utama, dan distribusi voxel dapat ditinjau langsung dari berbagai
+sudut pandang.
+
+\subsection{Alur Rendering dan Interaksi}
+
+\subsubsection{Membaca Model dan Menyiapkan Data Geometri}
+
+Viewer membaca berkas OBJ hasil voxelization, kemudian memisahkan data menjadi daftar titik
+(\textit{vertex}) dan daftar segitiga (\textit{face}). Pada tahap ini, struktur geometri disiapkan
+sebagai data mentah yang akan diproses pada pipeline visualisasi.
+
+\subsubsection{Normalisasi Model terhadap \textit{Bounding Box}}
+
+Setelah data model terbaca, program menghitung \textit{bounding box} objek untuk mendapatkan
+pusat model dan ukuran maksimum pada ketiga sumbu. Seluruh titik kemudian ditranslasi ke pusat
+koordinat dan diskalakan agar dimensi model terjaga dalam rentang tampilan yang stabil.
+Langkah ini membuat objek dengan ukuran berbeda tetap mudah ditampilkan dan diinteraksikan.
+
+\subsubsection{Transformasi Ruang 3D ke Layar 2D}
+
+Setiap titik model diputar pada sumbu $x$ dan $y$ sesuai sudut pandang pengguna.
+Koordinat hasil rotasi lalu diproyeksikan ke koordinat layar 2D melalui fungsi proyeksi,
+dengan faktor skala yang dipengaruhi oleh nilai \textit{zoom}. Dengan mekanisme ini,
+perubahan sudut pandang dan pembesaran objek dapat terlihat secara langsung.
+
+\subsubsection{Penyaringan, Pengurutan, dan Pewarnaan Segitiga}
+
+Untuk setiap segitiga, program menghitung vektor normal permukaan sebagai dasar
+penentuan visibilitas dan pencahayaan. Segitiga yang membelakangi kamera dipangkas
+melalui \textit{back-face culling}. Segitiga yang tersisa kemudian diurutkan berdasarkan
+kedalaman rata-rata (\textit{Painter's Algorithm}) agar tumpang tindih permukaan
+ditampilkan lebih konsisten. Warna abu-abu tiap segitiga ditentukan dari orientasi normal
+terhadap arah pandang, sehingga bentuk objek tampak lebih jelas.
+
+\subsubsection{Interaksi Pengguna}
+
+Interaksi utama yang didukung viewer adalah:
+
+\begin{itemize}
+    \item Klik dan \textit{drag} mouse untuk rotasi objek pada sumbu $x$ dan $y$.
+    \item \textit{Scroll wheel} untuk \textit{zoom in} dan \textit{zoom out}.
+\end{itemize}
+
+\subsection{Perbandingan Visualisasi Web dan Visualizer C++}
+
+Subbagian ini menampilkan tiga contoh perbandingan visualisasi antara hasil visualizer C++
+dan viewer berbasis web.
+
+Sumber viewer web yang digunakan:\\
+\url{https://3dviewer.net/}
+
+\subsubsection{Contoh 1: Objek Cow (depth 6)}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \IfFileExists{cow_depth6.png}{
+            \includegraphics[width=\textwidth]{cow_depth6.png}
+        }{
+            \fbox{\parbox[c][4.3cm][c]{0.95\textwidth}{\centering Gambar web contoh 1 belum tersedia}}
+        }
+        \caption*{(a) Visualisasi web}
+    \end{minipage}\hfill
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \IfFileExists{cow_depth6visualize.png}{
+            \includegraphics[width=\textwidth]{cow_depth6visualize.png}
+        }{
+            \fbox{\parbox[c][4.3cm][c]{0.95\textwidth}{\centering Gambar visualizer C++ contoh 1 belum tersedia}}
+        }
+        \caption*{(b) Visualizer C++}
+    \end{minipage}
+    \caption{Perbandingan contoh 1: visualisasi web dan visualizer C++ pada objek cow depth 6}
+\end{figure}
+
+\subsubsection{Contoh 2: Objek Pumpkin (depth 5)}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \IfFileExists{pumpkin_depth5.png}{
+            \includegraphics[width=\textwidth]{pumpkin_depth5.png}
+        }{
+            \fbox{\parbox[c][4.3cm][c]{0.95\textwidth}{\centering Gambar web contoh 2 belum tersedia}}
+        }
+        \caption*{(a) Visualisasi web}
+    \end{minipage}\hfill
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \IfFileExists{pumpkin_depth5visualize.png}{
+            \includegraphics[width=\textwidth]{pumpkin_depth5visualize.png}
+        }{
+            \fbox{\parbox[c][4.3cm][c]{0.95\textwidth}{\centering Gambar visualizer C++ contoh 2 belum tersedia}}
+        }
+        \caption*{(b) Visualizer C++}
+    \end{minipage}
+    \caption{Perbandingan contoh 2: visualisasi web dan visualizer C++ pada objek pumpkin depth 5}
+\end{figure}
+
+
+\subsubsection{Contoh 3: Objek Teapot (depth 7)}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \IfFileExists{teapot_depth7.png}{
+            \includegraphics[width=\textwidth]{teapot_depth7.png}
+        }{
+            \fbox{\parbox[c][4.3cm][c]{0.95\textwidth}{\centering Gambar web contoh 3 belum tersedia}}
+        }
+        \caption*{(a) Visualisasi web}
+    \end{minipage}\hfill
+    \begin{minipage}[t]{0.48\textwidth}
+        \centering
+        \IfFileExists{teapot_depth7visualize.png}{
+            \includegraphics[width=\textwidth]{teapot_depth7visualize.png}
+        }{
+            \fbox{\parbox[c][4.3cm][c]{0.95\textwidth}{\centering Gambar visualizer C++ contoh 3 belum tersedia}}
+        }
+        \caption*{(b) Visualizer C++}
+    \end{minipage}
+    \caption{Perbandingan contoh 3: visualisasi web dan visualizer C++ pada objek teapot depth 7}
+\end{figure}
+
+\subsection{Perbandingan Umum}
+
+Secara umum, kedua pendekatan menampilkan bentuk global objek voxel dengan konsisten.
+Perbedaan utama terlihat pada batas antar-kubus yang saling bersisian. Pada visualisasi web,
+garis di antara dua \textit{box} yang berdampingan cenderung hilang karena permukaan yang
+berimpit dirender menyatu. Sebaliknya, pada visualizer C++ yang kami buat, garis pemisah
+antar-kubus masih terlihat, sehingga struktur voxel diskret tampak lebih tegas.
+
+\clearpage
 \section{Lampiran}
 \begin{itemize}
     \item Tautan Repository:\\
