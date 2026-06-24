@@ -3,76 +3,84 @@
 
 ![Logo](cover.png)
 
-## Deskripsi Program
-Pernahkah kamu melihat sebuah benda dan membayangkan bagaimana bentuknya jika dibangun di dalam game Minecraft? Program ini melakukan hal yang persis sama secara otomatis!
+# Program Description
 
-Program ini berfungsi mengubah model 3D standar (yang permukaannya mulus dan terbuat dari segitiga) menjadi susunan balok-balok 3D. Proses pengubahan wujud menjadi balok-balok ini dikenal dengan istilah Voxelization.
-Program ini mengimplementasikan voxelization model 3D berformat OBJ menggunakan pendekatan divide and conquer berbasis octree.
+Have you ever looked at an object and imagined what it would look like if it were built inside Minecraft? This program does exactly that automatically!
 
-* **Voxel (Volumetric Pixel):** Jika gambar 2D di layar HP-mu tersusun dari titik-titik warna bernama *pixel*, maka bentuk 3D tersusun dari kubus-kubus bernama *voxel*. Secara sederhana, *voxel* adalah satu blok bangunan di Minecraft.
-* **Octree & Divide and Conquer (Cara Cepat Membangun):** Untuk menemukan di mana balok harus diletakkan, program tidak mengecek seluruh dunia secara membabi buta. Ia menggunakan trik cerdas yang disebut *Octree* (Pohon beranak 8):
-    1.  Program membuat satu **kotak raksasa** yang membungkus seluruh objek 3D.
-    2.  Kotak raksasa itu kemudian **dibelah menjadi 8 kotak** yang lebih kecil.
-    3.  Jika ada kotak yang ternyata kosong, kotak itu langsung dibuang.
-    4.  Jika kotak tersebut menyentuh bagian dari objek 3D, kotak itu dibelah lagi menjadi 8. Begitu seterusnya sampai kotaknya mengecil seukuran blok Minecraft yang kita inginkan.
+The program converts a standard 3D model (with smooth surfaces made of triangles) into a structure composed of 3D blocks. This transformation process is known as **Voxelization**.
 
-Secara umum, alur program adalah:
-1. Membaca mesh segitiga dari file OBJ (vertex dan face).
-2. Menentukan bounding box model.
-3. Membangun octree secara rekursif sampai kedalaman maksimum.
-4. Menentukan node yang merepresentasikan voxel valid.
-5. Mengekspor hasil voxelization ke file OBJ baru.
+This program implements voxelization for 3D models in OBJ format using a divide-and-conquer approach based on an octree.
 
-## Requirement
+* **Voxel (Volumetric Pixel):** If a 2D image on your phone screen is made up of colored dots called *pixels*, then a 3D shape can be represented by cubes called *voxels*. Simply put, a voxel is equivalent to a building block in Minecraft.
 
-Program ini membutuhkan:
-1. Sistem operasi Linux, macOS, atau Windows.
-2. Compiler C++ dengan dukungan C++17 (contoh: g++).
-3. GNU Make (direkomendasikan).
+* **Octree & Divide and Conquer (A Smart Way to Build):** To determine where blocks should be placed, the program does not blindly inspect the entire space. Instead, it uses a clever data structure called an **Octree** (an 8-way tree):
 
-Verifikasi tool:
+  1. The program creates one **large bounding box** that encloses the entire 3D object.
+  2. The bounding box is then **subdivided into 8 smaller boxes**.
+  3. Any box that is completely empty is immediately discarded.
+  4. If a box intersects part of the 3D object, it is subdivided again into 8 smaller boxes. This process continues until the boxes reach the desired Minecraft block size.
+
+In general, the program workflow is:
+
+1. Read the triangle mesh from an OBJ file (vertices and faces).
+2. Compute the model's bounding box.
+3. Recursively build the octree up to a specified maximum depth.
+4. Determine which octree nodes represent valid voxels.
+5. Export the voxelized result as a new OBJ file.
+
+# Requirements
+
+This program requires:
+
+1. Linux, macOS, or Windows operating system.
+2. A C++ compiler with C++17 support (e.g., g++).
+3. GNU Make (recommended).
+
+Verify the required tools:
 
 ```bash
 g++ --version
 make --version
 ```
 
-## Cara Kompilasi
+# Compilation
 
-Program menggunakan makefile. Dari root project, jalankan:
+The program uses a Makefile. From the project root directory, run:
 
 ```bash
 make
 ```
 
-Perintah tersebut akan:
-1. Membuat folder bin jika belum ada.
-2. Mengompilasi seluruh source di folder src.
-3. Menghasilkan executable di:
+This command will:
+
+1. Create the `bin` folder if it does not already exist.
+2. Compile all source files in the `src` directory.
+3. Generate the executable:
 
 ```bash
 bin/voxelizer.exe
 ```
 
-Untuk membersihkan hasil build:
+To clean build artifacts:
 
 ```bash
 make clean
 ```
 
-## Cara Menjalankan Program
+# Running the Program
 
-Format perintah:
+Command format:
 
 ```bash
-bin/voxelizer.exe <input.obj> <kedalamanMaks>
+bin/voxelizer.exe <input.obj> <maxDepth>
 ```
 
-Keterangan parameter:
-1. input.obj: path file OBJ input.
-2. kedalamanMaks: kedalaman maksimum octree (bilangan bulat 1-20).
+Parameter description:
 
-Contoh penggunaan:
+1. `input.obj`: Path to the input OBJ file.
+2. `maxDepth`: Maximum octree depth (integer from 1 to 20).
+
+Examples:
 
 ```bash
 bin/voxelizer.exe test/cow.obj 15
@@ -80,101 +88,108 @@ bin/voxelizer.exe test/pumpkin.obj 9
 bin/voxelizer.exe test/teapot.obj 8
 ```
 
-## Cara Menjalankan GUI (Viewer)
+# Running the GUI Viewer
 
-Program juga menyediakan viewer sederhana untuk melihat file OBJ secara interaktif.
+The project also includes a simple viewer for interactively visualizing OBJ files.
 
-Requirement tambahan untuk viewer:
-1. Library SFML (graphics, window, system).
-2. `pkg-config` untuk deteksi SFML saat build.
+Additional requirements:
 
-Contoh instalasi di Ubuntu/Debian:
+1. SFML library (graphics, window, system).
+2. `pkg-config` for SFML detection during build.
+
+Example installation on Ubuntu/Debian:
 
 ```bash
 sudo apt update
 sudo apt install -y libsfml-dev pkg-config
 ```
 
-Build viewer:
+Build the viewer:
 
 ```bash
 make viewer
 ```
 
-Jika SFML terdeteksi, executable viewer akan dibuat di:
+If SFML is detected, the viewer executable will be generated at:
 
 ```bash
 bin/viewer.exe
 ```
 
-Cara menjalankan viewer:
+Run the viewer:
 
 ```bash
-bin/viewer.exe <file-obj>
+bin/viewer.exe <obj-file>
 ```
 
-Contoh:
+Examples:
 
 ```bash
 bin/viewer.exe test/cube.obj
 bin/viewer.exe test/cube-voxelized-4.obj
 ```
 
-Kontrol pada viewer:
-1. Klik dan drag mouse untuk rotasi objek.
-2. Scroll mouse untuk zoom in atau zoom out.
-3. Tutup jendela untuk keluar dari viewer.
+Viewer controls:
 
-Catatan:
-1. `make` akan mencoba build `bin/voxelizer.exe` dan `bin/viewer.exe`.
-2. Jika SFML belum terpasang, proses build viewer akan dilewati otomatis.
-3. Viewer menerima path langsung, dan juga mencoba mencari file di folder `test/` jika path awal tidak ditemukan.
+1. Click and drag the mouse to rotate the object.
+2. Use the mouse wheel to zoom in or out.
+3. Close the window to exit.
 
-## Format Input yang Didukung
+Notes:
 
-File input harus berformat OBJ dengan asumsi:
-1. Face berupa segitiga (setiap baris f memiliki tepat 3 indeks).
-2. Indeks face bernilai positif dan valid terhadap jumlah vertex.
-3. Prefix selain v dan f dapat diabaikan oleh parser.
+1. `make` will attempt to build both `bin/voxelizer.exe` and `bin/viewer.exe`.
+2. If SFML is not installed, the viewer build step is automatically skipped.
+3. The viewer accepts direct file paths and will also search in the `test/` folder if the provided path cannot be found.
 
-## Hasil Output
+# Supported Input Format
 
-Program menghasilkan:
-1. File OBJ hasil voxelization dengan pola nama:
+Input files must be in OBJ format with the following assumptions:
+
+1. Faces are triangles (each `f` line contains exactly 3 indices).
+2. Face indices are positive and valid with respect to the number of vertices.
+3. Prefixes other than `v` and `f` may be ignored by the parser.
+
+# Output
+
+The program generates:
+
+1. A voxelized OBJ file with the naming pattern:
 
 ```text
-<nama-file-input>-voxelized-<tingkat kedalaman>.obj
+<input-file-name>-voxelized-<depth>.obj
 ```
 
-2. Informasi statistik pada terminal, meliputi:
-	- jumlah voxel
-	- jumlah vertex dan face hasil output
-	- statistik node octree
-	- waktu proses
+2. Terminal statistics, including:
 
-## Struktur Direktori
+   * Number of voxels
+   * Number of output vertices and faces
+   * Octree node statistics
+   * Processing time
+
+# Directory Structure
 
 ```text
 Tucil2_13524090_13524093/
-├── src/              # source code utama
-├── bin/              # executable hasil kompilasi
-├── test/             # data uji OBJ dan output
-├── doc/              # laporan tugas kecil
-├── makefile          # instruksi build dan clean
+├── src/              # main source code
+├── bin/              # compiled executables
+├── test/             # OBJ test files and outputs
+├── doc/              # project report
+├── makefile          # build and clean instructions
 └── README.md
 ```
 
-## Teknologi
+# Technology Stack
 
-1. Bahasa: C++17
+1. Language: C++17
 2. Compiler: g++
 3. Build Tool: GNU Make
-4. Pendekatan: Octree-based voxelization (divide and conquer)
+4. Approach: Octree-based voxelization (divide and conquer)
 
-## Author
+# Authors
 
-1. Nashiruddin Akram - 13524090
-2. Reinsen Silitonga - 13524093
+1. Nashiruddin Akram — 13524090
+2. Reinsen Silitonga — 13524093
+
 
 ---
 
